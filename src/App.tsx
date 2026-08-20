@@ -1,9 +1,7 @@
 import { useState } from "react";
+import GameBoard, { type Choice, type Result } from "./components/GameBoard";
 
 export default function App() {
-  type Choice = "rock" | "paper" | "scissors";
-  type Result = "win" | "lose" | "draw" | null;
-
   const beats: Record<Choice, Choice> = {
     rock: "scissors",
     paper: "rock",
@@ -42,30 +40,13 @@ export default function App() {
   }
 
   return (
-    <div>
-      <div>
-        {choices.map((choice) => (
-          <button key={choice} onClick={() => handlePlay(choice)}>
-            {choice}
-          </button>
-        ))}
-      </div>
-
-      {result && (
-        <div>
-          <p>You chose: {playerChoice}</p>
-          <p>Computer chose: {computerChoice}</p>
-          <p>
-            {result === "win" && "You win!"}
-            {result === "lose" && "You lose!"}
-            {result === "draw" && "It's a draw!"}
-          </p>
-        </div>
-      )}
-
-      <p>
-        Wins: {score.wins} | Losses: {score.losses} | Draws: {score.draws}
-      </p>
-    </div>
+    <GameBoard
+      choices={choices}
+      playerChoice={playerChoice}
+      computerChoice={computerChoice}
+      result={result}
+      score={score}
+      onPlay={handlePlay}
+    />
   );
 }
